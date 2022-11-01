@@ -1,11 +1,37 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import com.example.myapplication.databinding.ActivityCuriosidadesBinding
+import com.example.myapplication.databinding.ActivityMainBinding
 
-class Curiosidades : AppCompatActivity() {
+class Curiosidades : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var binding : ActivityCuriosidadesBinding
+    private lateinit var preferences: MyPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_curiosidades)
+        binding = ActivityCuriosidadesBinding.inflate(layoutInflater)
+        preferences = MyPreferences(this)
+        setContentView(binding.root)
+
+        binding.buttonGerar.setOnClickListener(this)
+    }
+
+    override fun onClick(view: View) {
+        val nome = binding.inputNome.text.toString()
+
+        if (nome.isNotEmpty()) {
+            preferences.setString("NOME_USUARIO", nome)
+
+            startActivity(Intent(this, Curiosidades::class.java))
+            finish()
+        } else {
+            Toast.makeText(applicationContext, "Preencha o nome para entrar", Toast.LENGTH_SHORT).show()
+        }
     }
 }
