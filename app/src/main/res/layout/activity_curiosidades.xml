@@ -19,6 +19,7 @@
         >
 
         <ImageView
+            android:id="@+id/img_gato"
             android:layout_width="wrap_content"
             android:layout_height="64dp"
             android:src="@drawable/ic_cat_svgrepo_com"
@@ -26,6 +27,7 @@
             app:tint="@color/white"
             />
         <ImageView
+            android:id="@+id/img_cachorro"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:src="@drawable/ic_dog_svgrepo_com"
@@ -36,6 +38,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/text_ola"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -48,7 +51,7 @@
 
     <TextView
         android:id="@+id/text_curiosidade"
-        android:layout_width="wrap_content"
+        android:layout_width="304dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
         android:text="curiosidade"
@@ -60,6 +63,7 @@
     <View
         android:layout_width="160dp"
         android:layout_height="2dp"
+        android:layout_marginTop="4dp"
         android:background="@color/primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

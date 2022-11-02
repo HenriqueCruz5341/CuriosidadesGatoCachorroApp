@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var preferences: MyPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         preferences = MyPreferences(this)
