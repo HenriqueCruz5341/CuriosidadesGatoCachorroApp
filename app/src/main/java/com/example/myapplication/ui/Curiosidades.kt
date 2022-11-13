@@ -1,18 +1,31 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
-import Dados
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityCuriosidadesBinding
-import kotlin.random.Random
+import com.example.myapplication.dtos.CuriosidadeCachorroDto
+import com.example.myapplication.dtos.CuriosidadeGatoDto
+import com.example.myapplication.providers.ClientCachorroApiProvider
+import com.example.myapplication.providers.ClientGatoApiProvider
+import com.example.myapplication.providers.MyPreferences
+import com.example.myapplication.services.CachorroApiService
+import com.example.myapplication.services.GatoApiService
+import com.example.myapplication.viewModel.CuriosidadesViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Curiosidades : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding : ActivityCuriosidadesBinding
     private lateinit var preferences: MyPreferences
+    private lateinit var curiosidadesVM: CuriosidadesViewModel
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,14 +34,16 @@ class Curiosidades : AppCompatActivity(), View.OnClickListener {
         binding = ActivityCuriosidadesBinding.inflate(layoutInflater)
         preferences = MyPreferences(this)
         setContentView(binding.root)
+        curiosidadesVM = ViewModelProvider(this).get(CuriosidadesViewModel::class.java)
+        setObserver()
 
         val nome = preferences.getString("NOME_USUARIO")
         val animal = getCurrentAnimal()
 
         changeSelectedAnimal(animal)
-        changeCuriosidade(animal)
+        curiosidadesVM.requestGatoCuriosidade(animal)
 
-        binding.textOla.text = "Olá, $nome"
+        binding.textOla.text = "${this.getString(R.string.welcome_text)} $nome"
 
         binding.buttonGerar.setOnClickListener(this)
         binding.imgGato.setOnClickListener(this)
@@ -47,7 +62,7 @@ class Curiosidades : AppCompatActivity(), View.OnClickListener {
         }
 
         changeSelectedAnimal(animal)
-        changeCuriosidade(animal)
+        curiosidadesVM.requestGatoCuriosidade(animal)
     }
 
     private fun getCurrentAnimal() : String {
@@ -69,12 +84,13 @@ class Curiosidades : AppCompatActivity(), View.OnClickListener {
             binding.imgGato.imageTintList = ColorStateList.valueOf(resources.getColor(R.color.yellow, baseContext.theme))
         }
     }
-
-    private fun changeCuriosidade(animal: String) {
-        if (animal == "CACHORRO") {
-            binding.textCuriosidade.text = Dados.cachorro[Random.nextInt(0, 5)]
-        }else{
-            binding.textCuriosidade.text = Dados.gato[Random.nextInt(0, 5)]
-        }
+    
+    private fun setObserver() {
+        curiosidadesVM.getCuriosidade().observe(this, Observer {
+            if(it != "")
+                binding.textCuriosidade.text = it
+            else
+                binding.textCuriosidade.text = "Texto da curiosidade"
+        })
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Curiosidades">
+    tools:context=".ui.Curiosidades">
 
     <LinearLayout
         android:id="@+id/header_title"
@@ -43,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/alata"
-        android:text="Olá, nome"
-        android:textSize="16dp"
+        android:text="@string/welcome_text"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header_title" />
@@ -54,8 +54,8 @@
         android:layout_width="304dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alata"
-        android:text="curiosidade"
-        android:textSize="16dp"
+        android:text=""
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:fontFamily="@font/alata"
-        android:text="Gerar outra frase"
+        android:text="@string/new_phrase"
         android:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

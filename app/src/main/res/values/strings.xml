@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Frases de cachorros e gatos</string>
+    <string name="new_phrase">Gerar nova frase</string>
+    <string name="welcome_text">Olá, </string>
+    <string name="hint_input">Digite seu nome</string>
+    <string name="button_login">Entrar</string>
+    <string name="toast_empty">Preencha o nome para entrar</string>
 </resources>
